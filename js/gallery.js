@@ -44,11 +44,15 @@ if(mCurrentIndex < 0){
 }
 	
 	//Add code here to access the #slideShow element
+	//Targets the photo ID and set image index
 	document.getElementById("photo").src = mImages[mCurrentIndex].img;
+	//Targets location index
 	let loc = document.getElementsByClassName('location');
 	loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+	//Targets description index to target its information
 	let des = document.getElementsByClassName('description');
 	des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+	//Targets description index to target its information
 	let dt = document.getElementsByClassName('date');
 	dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date; 
 	//Access the img element and replace its source
@@ -78,7 +82,7 @@ var mUrl = "https://api.npoint.io/a2a427005054ea24b4ae";
 
 //Part 2 Slideshow 1 and 2 
 
-//function to call iterateJSON and check status 
+//function that runs when document loads to call iterateJSON and check status and response 
 function fetchJSON (){
 	mRequest.onreadystatechange = function(){
 		console.log("on ready state change");
@@ -116,6 +120,7 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 	}
 }
 
+//Function that runs when DOM is ready to be executed
 $(document).ready( function() {
 	fetchJSON(mUrl);
 	// This initially hides the photos' metadata information
