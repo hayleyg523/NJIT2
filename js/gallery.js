@@ -33,11 +33,31 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
-	//Add code here to access the #slideShow element.
+
+	if(mCurrentIndex>=mImages.length){
+    mCurrentIndex=0;
+} 
+
+
+if(mCurrentIndex < 0){
+    mCurrentIndex = mImages.length-1;
+}
+	
+	//Add code here to access the #slideShow element
+	document.getElementById("photo").src = mImages[mCurrentIndex].img;
+	let loc = document.getElementsByClassName('location');
+	loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+	let des = document.getElementsByClassName('description');
+	des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+	let dt = document.getElementsByClassName('date');
+	dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date; 
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
-	console.log('swap photo');
+	
+
+	mLastFrameTime = 0
+	mCurrentIndex += 1
 }
 
 // Counter for the mImages array
@@ -54,7 +74,37 @@ var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'insert_url_here_to_image_json';
+var mUrl = "https://api.npoint.io/a2a427005054ea24b4ae";
+
+//Part 2 Slideshow 1 and 2 
+
+//function to call iterateJSON and check status 
+function fetchJSON (){
+	mRequest.onreadystatechange = function(){
+		console.log("on ready state change");
+		if(this.readyState == 4 && this.status == 200){
+			mJson = JSON.parse(mRequest.responseText);
+			iterateJSON(mJson);
+		}
+	}
+	mRequest.open("GET", mUrl, true);
+	mRequest.send();  
+
+	iterateJSON(mJson);
+}
+
+// function made to iterate and then give the variables values for their images
+function iterateJSON(mJSON){
+    for (x = 0; x < mJson.images.length; x++) {
+        mImages[x] = new GalleryImage();
+       
+        mImages[x].location = mJson.images[x].imgLocation;
+        mImages[x].description = mJson.images[x].description;
+        mImages[x].date = mJson.images[x].date;
+        mImages[x].img = mJson.images[x].imgPath;
+
+    }
+}
 
 
 //You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
@@ -67,9 +117,9 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 }
 
 $(document).ready( function() {
-	
+	fetchJSON(mUrl);
 	// This initially hides the photos' metadata information
-	$('.details').eq(0).hide();
+	//$('.details').eq(0).hide();
 	
 });
 
@@ -82,7 +132,12 @@ window.addEventListener('load', function() {
 function GalleryImage() {
 	//implement me as an object to hold the following data about an image:
 	//1. location where photo was taken
+	let location; 
 	//2. description of photo
+	let description;
 	//3. the date when the photo was taken
+	let date;
 	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+	let img;
 }
+
