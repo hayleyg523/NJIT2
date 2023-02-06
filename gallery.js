@@ -37,8 +37,42 @@ function swapPhoto() {
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
-	console.log('swap photo');
+	
+	if(mCurrentIndex>=mImages.length){
+    mCurrentIndex=0;
+
+
 }
+
+
+if(mCurrentIndex<0){
+    mCurrentIndex=mImages.length-1;
+
+
+}
+
+    document.getElementById('photo').src = mImages[mCurrentIndex].img;
+    var location= document.getElementByClassName('location');
+    loc[0].innerHTML= "Location: " + mImages[mCurrentIndex].location;
+
+
+    var description = document.getElementByClassName('description');
+    des[0].innerHTML= "description: " + mImages[mCurrentIndex].description;
+
+
+    var date = document.getElementByClassName('date');
+    dt[0].innerHTML= "Date: " + mImages[mCurrentIndex].date;
+
+
+    mLastFrameTime=0
+    mCurrentIndex +=1
+
+
+}
+
+
+
+
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -56,17 +90,38 @@ var mJson;
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
 var mUrl = 'images.json';
 
-//Part 2 Slides 1 and 2
+//Part 2 Slideshow 1 and 2
+
+
 function fetchJSON(){
-	mRequest.onreadystatechange = function(){
-		console.log("on ready state change");
-		if(this.readyState == 4 && this.status == 200){
-			mJson = JSON.parse(mRequest.responseText);
-			iterateJSON(mJson);
-		}
-	}
-	mRequest.open("GET", mURL, true);
-	mRequest.send();
+    mRequest.onreadystatechange = function(){
+        console.log("on ready state change");
+        if(this.readyState == 4 && this.status==200){
+    mJSON = JSON.parse(mRequest.responseText);
+    iterateJSON(mJSON);
+        }
+    }
+    mRequest.open("GET",mUrl,true);
+    mRequest.send();
+
+
+    iterateJSON(mJson);
+}
+
+// function made to iterate and then give the variables values for their images
+function iterateJSON(mJSON){
+    for (x = 0; x < mJson.images.length; x++) {
+        mImages[x] = new GalleryImage();
+       
+        mImages[x].location = mJson.images[x].imgLocation;
+        mImages[x].description = mJson.images[x].description;
+        mImages[x].date = mJson.images[x].date;
+        mImages[x].img = mJson.images[x].imgPath;
+
+
+
+
+    }
 }
 
 
@@ -99,7 +154,7 @@ function GalleryImage() {
 	//2. description of photo
 	let description;
 	//3. the date when the photo was taken
-	let data;
+	let date;
 	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 	let img;
-}
+} 
