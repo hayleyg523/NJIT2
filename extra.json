@@ -1,0 +1,46 @@
+{
+  "images": [
+    {
+      "imgPath": "img/boraBora.jpg",
+      "imgLocation": "Bora Bora",
+      "description": "St. Regis Bora Bora Resort",
+      "date": "01/10/2022"
+    },
+    {
+      "imgPath": "img/mexicoCity.jfif",
+      "imgLocation": "Mexico",
+      "description": "Mexico City",
+      "date": "06/23/21"
+    },
+    {
+      "imgPath": "img/arizonaScottsdale.jpg",
+      "imgLocation": "Jamaica",
+      "description": "Negril Beach",
+      "date": "11/22/2022"
+    },
+    {
+      "imgPath": "img/costaRica.jpg",
+      "imgLocation": "Costa Rica",
+      "description": "Carara National Park",
+      "date": "07/14/2021"
+    },
+    {
+      "imgPath": "img/arizonaScottsdale.jpg",
+      "imgLocation": "Arizona",
+      "description": "Scottsdale",
+      "date": "03/30/2022"
+    },
+    {
+      "imgPath": "img/floridaMiami.jpg",
+      "imgLocation": "Florida",
+      "description": "Miami",
+      "date": "12/01/2022"
+    },
+    {
+      "imgPath": "img/sanFrancisco.jpg",
+      "imgLocation": "California",
+      "description": "San Francisco",
+      "date": "02/06/2023"
+    }
+    ]
+}

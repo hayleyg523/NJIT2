@@ -1,17 +1,23 @@
 body {
   overflow: auto;
   font-family: "Century Gothic", sans-serif;
-  background-image: url(../img/geometry.jpg);
+  background-image: url(../img/coolBackgrounds.png);
+  background-size: cover;
+}
+
+span {
+  text-decoration: underline;
 }
 
 #photoBooth {
-  margin-top: 0.2em;
+  margin-top: 5%;
   padding: 10px;
   width: 650px;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border:solid 5px black;
 }
 
 #slideShow {
@@ -39,7 +45,10 @@ body {
 }
 
 .thumbnail {
-  box-shadow: 1px 3px 20px 0px;
+  
+  height: 100%;
+  width: 100%;
+  
 }
 
 
@@ -107,4 +116,15 @@ Make it animate nicely. You'll need CSS3 for this*/
 	bottom: 55px;
 	padding-left: 100%;
 	position: absolute;
+}
+
+.dream {
+  text-decoration: underline;
+  text-decoration-color: lightblue;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.box {
+  box-shadow: 5px 5px 5px 5px;
 }

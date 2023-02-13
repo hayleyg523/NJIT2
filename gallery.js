@@ -116,7 +116,7 @@ var mJson
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'images.json';
+var mUrl = 'extra.json';
 
 //Part 2 Slideshow 1 and 2
 
@@ -167,6 +167,11 @@ $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
 	//$('.details').eq(0).hide();
+
+    //function that checks if mURL is undefined, sets default images.json file
+    if(mUrl == undefined){
+        mUrl = 'images-short.json';
+    } 
     fetchJSON();
     //images switch on click
     $("#nextPhoto").click(function(){
