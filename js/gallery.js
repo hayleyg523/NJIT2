@@ -33,36 +33,74 @@ function animate() {
 /************* DO NOT TOUCH CODE ABOVE THIS LINE ***************/
 
 function swapPhoto() {
-
-	if(mCurrentIndex>=mImages.length){
-    mCurrentIndex=0;
-} 
-
-
-if(mCurrentIndex < 0){
-    mCurrentIndex = mImages.length-1;
-}
-	
-	//Add code here to access the #slideShow element
-	//Targets the photo ID and set image index
-	document.getElementById("photo").src = mImages[mCurrentIndex].img;
-	//Targets location index
-	let loc = document.getElementsByClassName('location');
-	loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
-	//Targets description index to target its information
-	let des = document.getElementsByClassName('description');
-	des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
-	//Targets description index to target its information
-	let dt = document.getElementsByClassName('date');
-	dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date; 
+	//Add code here to access the #slideShow element.
 	//Access the img element and replace its source
 	//with a new image from your images array which is loaded 
 	//from the JSON string
 	
+	if(mCurrentIndex>=mImages.length){
+    mCurrentIndex=0;
+  }
 
-	mLastFrameTime = 0
-	mCurrentIndex += 1
+
+if(mCurrentIndex<0){
+    mCurrentIndex=mImages.length-1;
+
+
 }
+
+    document.getElementById('photo').src = mImages[mCurrentIndex].img;
+    var loc= document.getElementsByClassName('location');
+    loc[0].innerHTML= "Location: " + mImages[mCurrentIndex].location;
+
+
+    var des = document.getElementsByClassName('description');
+    des[0].innerHTML= "Description: " + mImages[mCurrentIndex].description;
+
+
+    var dt = document.getElementsByClassName('date');
+    dt[0].innerHTML= "Date: " + mImages[mCurrentIndex].date;
+
+
+    mLastFrameTime=0
+    mCurrentIndex +=1
+
+
+}
+
+//function to click button to move to previous photo
+function prevPhoto() {
+  //Add code here to access the #slideShow element.
+  //Access the img element and replace its source
+  //with a new image from your images array which is loaded
+  //from the JSON string
+
+  if (mCurrentIndex >= mImages.length) {
+    mCurrentIndex = 0;
+  }
+
+  if (mCurrentIndex < 0) {
+    mCurrentIndex = mImages.length - 1;
+  }
+
+  document.getElementById("photo").src = mImages[mCurrentIndex].img;
+  var loc = document.getElementsByClassName("location");
+  loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+
+  var des = document.getElementsByClassName("description");
+  des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+
+  var dt = document.getElementsByClassName("date");
+  dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
+
+  mLastFrameTime = 0;
+  mCurrentIndex -= 1;
+}
+
+
+
+
+
 
 // Counter for the mImages array
 var mCurrentIndex = 0;
@@ -74,27 +112,28 @@ var mRequest = new XMLHttpRequest();
 var mImages = [];
 
 // Holds the retrived JSON information
-var mJson;
+var mJson 
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = "https://api.npoint.io/a2a427005054ea24b4ae";
+var mUrl = 'extra.json';
 
-//Part 2 Slideshow 1 and 2 
+//Part 2 Slideshow 1 and 2
 
-//function that runs when document loads to call iterateJSON and check status and response 
-function fetchJSON (){
-	mRequest.onreadystatechange = function(){
-		console.log("on ready state change");
-		if(this.readyState == 4 && this.status == 200){
-			mJson = JSON.parse(mRequest.responseText);
-			iterateJSON(mJson);
-		}
-	}
-	mRequest.open("GET", mUrl, true);
-	mRequest.send();  
 
-	iterateJSON(mJson);
+function fetchJSON(){
+    mRequest.onreadystatechange = function(){
+        console.log("on ready state change");
+        if(this.readyState == 4 && this.status==200){
+    mJson = JSON.parse(mRequest.responseText);
+    iterateJSON(mJson);
+        }
+    }
+    mRequest.open("GET", mUrl ,true);
+    mRequest.send();
+
+
+    iterateJSON(mJson);
 }
 
 // function made to iterate and then give the variables values for their images
@@ -106,6 +145,9 @@ function iterateJSON(mJSON){
         mImages[x].description = mJson.images[x].description;
         mImages[x].date = mJson.images[x].date;
         mImages[x].img = mJson.images[x].imgPath;
+
+
+
 
     }
 }
@@ -120,12 +162,24 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 	}
 }
 
-//Function that runs when DOM is ready to be executed
+
 $(document).ready( function() {
-	fetchJSON(mUrl);
+	
 	// This initially hides the photos' metadata information
 	//$('.details').eq(0).hide();
-	
+
+    //function that checks if mURL is undefined, sets default images.json file
+    if(mUrl == undefined){
+        mUrl = 'images-short.json';
+    } 
+    fetchJSON();
+    //images switch on click
+    $("#nextPhoto").click(function(){
+        swapPhoto();
+    });
+	$("#prevPhoto").click(function () {
+    prevPhoto();
+  });
 });
 
 window.addEventListener('load', function() {
@@ -137,12 +191,24 @@ window.addEventListener('load', function() {
 function GalleryImage() {
 	//implement me as an object to hold the following data about an image:
 	//1. location where photo was taken
-	let location; 
+	let location;
 	//2. description of photo
 	let description;
 	//3. the date when the photo was taken
 	let date;
 	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
 	let img;
+
+};
+
+//add a click handler to the img.moreIndicator, add and remove class attributes to animate, turn arrow on click
+function showDetails() {
+    if($('.moreIndicator').hasClass("rot90")){
+       $('.moreIndicator').removeClass("rot90").addClass("rot270");
+    } else {
+        $('.moreIndicator').removeClass("rot270").addClass("rot90");
+    }
+
+   $('.details').slideToggle('slow','linear'); 
 }
 
